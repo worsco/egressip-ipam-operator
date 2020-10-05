@@ -1,7 +1,7 @@
 
 # Image URL to use all building/pushing image targets
 REGISTRY ?= quay.io
-REPOSITORY ?= $(REGISTRY)/redhat-cop/egressip-ipam-operator
+REPOSITORY ?= $(REGISTRY)/worsco/egressip-ipam-operator
 
 IMG := $(REPOSITORY):latest
 
@@ -15,14 +15,14 @@ BUILD_HOSTNAME := $(shell ./scripts/build/get-build-hostname.sh)
 
 export GITHUB_PAGES_DIR ?= /tmp/helm/publish
 export GITHUB_PAGES_BRANCH ?= gh-pages
-export GITHUB_PAGES_REPO ?= redhat-cop/egressip-ipam-operator
+export GITHUB_PAGES_REPO ?= worsco/egressip-ipam-operator
 export HELM_CHARTS_SOURCE ?= charts
 export HELM_CHART_DEST ?= $(GITHUB_PAGES_DIR)
 
-LDFLAGS := "-X github.com/redhat-cop/egressip-ipam-operator/version.Version=$(VERSION) \
-	-X github.com/redhat-cop/egressip-ipam-operator/version.Vcs=$(BUILD_COMMIT) \
-	-X github.com/redhat-cop/egressip-ipam-operator/version.Timestamp=$(BUILD_TIMESTAMP) \
-	-X github.com/redhat-cop/egressip-ipam-operator/version.Hostname=$(BUILD_HOSTNAME)"
+LDFLAGS := "-X github.com/worsco/egressip-ipam-operator/version.Version=$(VERSION) \
+	-X github.com/worsco/egressip-ipam-operator/version.Vcs=$(BUILD_COMMIT) \
+	-X github.com/worsco/egressip-ipam-operator/version.Timestamp=$(BUILD_TIMESTAMP) \
+	-X github.com/worsco/egressip-ipam-operator/version.Hostname=$(BUILD_HOSTNAME)"
 
 all: manager
 
@@ -32,11 +32,11 @@ native-test: generate fmt vet
 
 # Build manager binary
 manager: generate fmt vet
-	go build -o build/_output/bin/egressip-ipam-operator  -ldflags $(LDFLAGS) github.com/redhat-cop/egressip-ipam-operator/cmd/manager
+	go build -o build/_output/bin/egressip-ipam-operator  -ldflags $(LDFLAGS) github.com/worsco/egressip-ipam-operator/cmd/manager
 
 # Build manager binary
 manager-osx: generate fmt vet
-	GOOS=darwin go build -o build/_output/bin/egressip-ipam-operator -ldflags $(LDFLAGS) github.com/redhat-cop/egressip-ipam-operator/cmd/manager
+	GOOS=darwin go build -o build/_output/bin/egressip-ipam-operator -ldflags $(LDFLAGS) github.com/worsco/egressip-ipam-operator/cmd/manager
 
 # Run against the configured Kubernetes cluster in ~/.kube/config
 run: generate fmt vet
